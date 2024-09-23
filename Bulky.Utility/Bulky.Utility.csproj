@@ -5,6 +5,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+  <PackageReference Include="Microsoft.AspNetCore.Identity" Version="8.0.0" />
+  <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.0" />
 
   <ItemGroup>
     <Reference Include="Microsoft.AspNetCore.Identity">
