@@ -12,13 +12,13 @@ namespace Bulky.Models
 
         [Required]
         [DisplayName("Category Name")]
-        public required string Title { get; set; }
+        public string? Title { get; set; }
         [Required]
-        public required string Description { get; set; }
+        public string? Description { get; set; }
         [Required]
-        public required string Author { get; set; }
+        public string? Author { get; set; }
         [Required]
-        public required string ISBN { get; set; }
+        public string? ISBN { get; set; }
         [Required]
         [Display(Name = "List Price")]
         [Range(1, 1000, ErrorMessage = "Price should be between 1 and 1000")]
