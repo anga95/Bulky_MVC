@@ -1,9 +1,6 @@
 name: Build and Test ASP.NET Core App
 
 on:
-    push:
-        branches:
-            - master
     pull_request:
         branches:
             - master
