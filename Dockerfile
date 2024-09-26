@@ -1,23 +1,27 @@
-# Använd en officiell bild som bas
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-WORKDIR /app
-EXPOSE 80
-
 # Bygg stadiet
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["BulkyWeb/BulkyWeb.csproj", "./"]
-RUN dotnet restore "./BulkyWeb.csproj"
+
+# Kopiera .csproj filer för både DataAccess och Web-projektet
+COPY ["BulkyWeb/BulkyWeb.csproj", "./BulkyWeb/"]
+COPY ["Bylky.DataAccess/Bylky.DataAccess.csproj", "./Bylky.DataAccess/"]
+
+# Kör dotnet restore för att återställa beroenden
+RUN dotnet restore "./BulkyWeb/BulkyWeb.csproj"
+
+# Kopiera hela projektets filer
 COPY . .
-WORKDIR "/src/"
+
+# Bygg projektet
+WORKDIR "/src/BulkyWeb"
 RUN dotnet build "BulkyWeb.csproj" -c Release -o /app/build
 
-# Publicera stadiet
+# Publicera projektet
 FROM build AS publish
 RUN dotnet publish "BulkyWeb.csproj" -c Release -o /app/publish
 
-# Sätt upp runtime stadiet
-FROM base AS final
+# Runtime stadiet
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "BulkyWeb.dll"]  # Starta applikationen
+ENTRYPOINT ["dotnet", "BulkyWeb.dll"]
