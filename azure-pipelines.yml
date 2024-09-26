@@ -6,7 +6,7 @@ pool:
 
 variables:
   imageName: 'baxling/bulky'
-  dockerfilePath: 'BulkyWeb/Dockerfile' # Justera beroende på din Dockerfile-plats
+  dockerfilePath: 'Dockerfile'
   buildContext: '.' # Byggkonteksten är rotmappen
   tag: 'latest'
 
@@ -41,7 +41,7 @@ steps:
 - task: Docker@2
   displayName: 'Build and Push Docker Image'
   inputs:
-    containerRegistry: 'dockerHubConnection' # Se till att denna service connection är korrekt konfigurerad
+    containerRegistry: 'dockerHubConnection'
     repository: '$(imageName)'
     command: 'buildAndPush'
     Dockerfile: '$(dockerfilePath)'
