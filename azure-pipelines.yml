@@ -4,12 +4,48 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+variables:
+  imageName: 'baxling/bulky'
+  dockerfilePath: 'BulkyWeb/Dockerfile' # Justera beroende på din Dockerfile-plats
+  buildContext: '.' # Byggkonteksten är rotmappen
+  tag: 'latest'
+
 steps:
-- task: Docker@2
+# Steg 1: Checka ut koden
+- checkout: self
+
+# Steg 2: Återställ beroenden
+- task: DotNetCoreCLI@2
+  displayName: 'Restore NuGet packages'
   inputs:
-    containerRegistry: 'dockerHubConnection'
-    repository: 'baxling/bulky'
+    command: 'restore'
+    projects: '**/*.csproj'
+
+# Steg 3: Bygg projektet
+- task: DotNetCoreCLI@2
+  displayName: 'Build the project'
+  inputs:
+    command: 'build'
+    projects: '**/*.csproj'
+    arguments: '--configuration Release --no-restore'
+
+# Steg 4: Kör tester
+- task: DotNetCoreCLI@2
+  displayName: 'Run tests'
+  inputs:
+    command: 'test'
+    projects: '**/*Tests/*.csproj'
+    arguments: '--configuration Release --no-build --verbosity normal'
+
+# Steg 5: Bygg och pusha Docker-imagen
+- task: Docker@2
+  displayName: 'Build and Push Docker Image'
+  inputs:
+    containerRegistry: 'dockerHubConnection' # Se till att denna service connection är korrekt konfigurerad
+    repository: '$(imageName)'
     command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile'
+    Dockerfile: '$(dockerfilePath)'
+    buildContext: '$(buildContext)'
     tags: |
-      latest
+      $(tag)
+      $(Build.BuildId)
