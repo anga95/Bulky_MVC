@@ -1,0 +1,29 @@
+# Byggstadiet
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+
+# Kopiera .csproj filer
+COPY ["BulkyWeb/BulkyWeb.csproj", "./"]
+COPY ["Bylky.DataAccess/Bylky.DataAccess.csproj", "../Bylky.DataAccess/"]
+
+# Restore beroenden
+RUN dotnet restore "BulkyWeb.csproj"
+
+# Kopiera övriga filer
+COPY . .
+
+# Bygg projektet
+WORKDIR "/src/BulkyWeb"
+RUN dotnet build "BulkyWeb.csproj" -c Release -o /app/build
+
+# Publicera projektet
+FROM build AS publish
+RUN dotnet publish "BulkyWeb.csproj" -c Release -o /app/publish
+
+# Runtime-stadiet
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+WORKDIR /app
+ENV ASPNETCORE_URLS=http://+:8081
+EXPOSE 8081
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "BulkyWeb.dll"]
