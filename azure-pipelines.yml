@@ -1,0 +1,15 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: Docker@2
+  inputs:
+    containerRegistry: 'dockerHubConnection'
+    repository: 'baxling/bulky'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
+    tags: |
+      latest
