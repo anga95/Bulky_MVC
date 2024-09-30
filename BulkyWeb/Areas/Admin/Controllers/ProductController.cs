@@ -1,7 +1,7 @@
 ﻿using Bulky.Models;
 using Bulky.Models.ViewModels;
 using Bulky.Utility;
-using Bylky.DataAccess.Repository.IRepository;
+using bulky.DataAccess.Repository.IRepository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;

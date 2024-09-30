@@ -19,10 +19,11 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.5" />
+    <PackageReference Include="Stripe.net" Version="45.14.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Bylky.DataAccess\Bylky.DataAccess.csproj" />
+    <ProjectReference Include="..\bulky.DataAccess\Bulky.DataAccess.csproj" />
   </ItemGroup>
 
   <ItemGroup>
