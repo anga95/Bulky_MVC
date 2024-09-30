@@ -18,5 +18,13 @@
         public const string PaymentStatusApproved = "Approved";
         public const string PaymentStatusDelayedPayment = "ApprovedForDelayedPayment";
         public const string PaymentStatusRejected = "Rejected";
+
+        // Filtreringsstatusar (för URL och JavaScript)
+        public const string FilterPending = "pending";
+        public const string FilterInProcess = "inprocess";
+        public const string FilterCompleted = "completed";
+        public const string FilterApproved = "approved";
+        public const string FilterAll = "all";
     }
+
 }
