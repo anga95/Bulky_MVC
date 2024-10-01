@@ -25,6 +25,8 @@
         public const string FilterCompleted = "completed";
         public const string FilterApproved = "approved";
         public const string FilterAll = "all";
+
+        public const string SessionCart = "SessionShoppingCart";
     }
 
 }
