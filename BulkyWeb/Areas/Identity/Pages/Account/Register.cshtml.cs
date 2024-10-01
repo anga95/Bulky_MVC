@@ -2,9 +2,9 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
+using bulky.DataAccess.Repository.IRepository;
 using Bulky.Models;
 using Bulky.Utility;
-using bulky.DataAccess.Repository.IRepository;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -202,7 +202,14 @@ namespace BulkyWeb.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        if (User.IsInRole(SD.Role_Admin))
+                        {
+                            TempData["Alert"] = "New user created successfully";
+                        }
+                        else
+                        {
+                            await _signInManager.SignInAsync(user, isPersistent: false);
+                        }
                         return LocalRedirect(returnUrl);
                     }
                 }

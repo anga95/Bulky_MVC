@@ -1,4 +1,6 @@
 ﻿@page
+@using Bulky.Utility
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model RegisterModel
 @{
     ViewData["Title"] = "Register";
@@ -9,7 +11,14 @@
 <div class="card shadow border -0 mt-4">
     <div class="card-header bg-secondary bg-gradient m-lg-0 py-4">
         <div class="col-12 text-center">
-            <h2 class="py-2 text-white">Register</h2>
+            @if (User.IsInRole(SD.Role_Admin))
+            {
+                <h2 class="py-2 text-white">Register - ADMIN PORTAL</h2>
+            }
+            else
+            {
+                <h2 class="py-2 text-white">Register</h2>
+            }
         </div>
     </div>
     <div class="card-body p-4">
@@ -43,50 +52,55 @@
                         <label asp-for="Input.ConfirmPassword" class="ms-2 text-muted">Confirm Password</label>
                         <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                     </div>
-                    
+
                     <div class="form-floating mb-3 col-md-6">
-                        <input asp-for="Input.StreetAddress" class="form-control"  placeholder="" />
+                        <input asp-for="Input.StreetAddress" class="form-control" placeholder="" />
                         <label asp-for="Input.StreetAddress" class="ms-2 text-muted">Street Address</label>
                         <span asp-validation-for="Input.StreetAddress" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-3 col-md-6">
-                        <input asp-for="Input.City" class="form-control"  placeholder="" />
+                        <input asp-for="Input.City" class="form-control" placeholder="" />
                         <label asp-for="Input.City" class="ms-2 text-muted">City</label>
                         <span asp-validation-for="Input.City" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-3 col-md-6">
-                        <input asp-for="Input.State" class="form-control"  placeholder="" />
+                        <input asp-for="Input.State" class="form-control" placeholder="" />
                         <label asp-for="Input.State" class="ms-2 text-muted">State</label>
                         <span asp-validation-for="Input.State" class="text-danger"></span>
                     </div>
                     <div class="form-floating mb-3 col-md-6">
-                        <input asp-for="Input.PostalCode" class="form-control"  placeholder="" />
+                        <input asp-for="Input.PostalCode" class="form-control" placeholder="" />
                         <label asp-for="Input.PostalCode" class="ms-2 text-muted">Postal Code</label>
                         <span asp-validation-for="Input.PostalCode" class="text-danger"></span>
                     </div>
-                    
 
-                    <div class="form-floating mb-3 col-md-6">
-                        <select asp-for="Input.Role" asp-items="@Model.Input.RoleList" class="form-select">
-                            <option disabled selected>-Select Role-</option>
-                        </select>
-                    </div>
-                    <div class="form-floating mb-3 col-md-6">
-                        <select asp-for="Input.CompanyId" style="display:none;" asp-items="@Model.Input.CompanyList" class="form-select">
-                            <option disabled selected>-Select Company-</option>
-                        </select>
-                    </div>
+                    @if (User.IsInRole(SD.Role_Admin))
+                    {
+                        <div class="form-floating mb-3 col-md-6">
+                            <select asp-for="Input.Role" asp-items="@Model.Input.RoleList" class="form-select">
+                                <option disabled selected>-Select Role-</option>
+                            </select>
+                        </div>
+                        <div class="form-floating mb-3 col-md-6">
+                            <select asp-for="Input.CompanyId" style="display:none;" asp-items="@Model.Input.CompanyList" class="form-select">
+                                <option disabled selected>-Select Company-</option>
+                            </select>
+                        </div>
+                    }
+
                     <div class="col-12">
                         <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
                     </div>
-                    
+
                 </form>
             </div>
+            @if(!User.IsInRole(SD.Role_Admin))
+            {
             <div class="col-md-12">
                 <section>
                     <p class="divider-text d-flex pt-3">or</p>
                     <h3>Use another service to register.</h3>
-                    <hr/>
+                    <hr />
                     @{
                         if ((Model.ExternalLogins?.Count ?? 0) == 0)
                         {
@@ -116,6 +130,7 @@
                     }
                 </section>
             </div>
+            }
         </div>
     </div>
 </div>
@@ -125,10 +140,10 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script>
-        $(document).ready(function() {
-            $('#Input_Role').change(function() {
+        $(document).ready(function () {
+            $('#Input_Role').change(function () {
                 var selection = $('#Input_Role Option:Selected').text();
-                if (selection=='Company') {
+                if (selection == 'Company') {
                     $('#Input_CompanyId').show();
                 }
                 else {
