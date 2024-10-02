@@ -50,8 +50,12 @@
                                     <li class="nav-item">
                                         <a class="dropdown-item" asp-area="Admin" asp-controller="Company" asp-action="Index">Company</a>
                                     </li>
+                                    <li> <hr class="dropdown-divider"/></li>
                                     <li class="nav-item">
                                         <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">Register User</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Index">Manage User</a>
                                     </li>
 
                                 </ul>
@@ -86,10 +90,11 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <link rel="stylesheet" href="//cdn.datatables.net/1.11.2/css/jquery.dataTables.min.css" />
+
     <script src="//cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.tiny.cloud/1/7v6ltgbf3bch6u7emuqqdkeuwbmq0c60779eqp0g78q869ss/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
