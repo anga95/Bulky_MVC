@@ -23,13 +23,13 @@ namespace bulky.DataAccess.Migrations
                 oldClrType: typeof(string),
                 oldType: "nvarchar(450)");
 
-            migrationBuilder.AlterColumn<string>(
-                name: "ImageUrl",
-                table: "Products",
-                type: "nvarchar(max)",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)");
+            //migrationBuilder.AlterColumn<string>(
+            //    name: "ImageUrl",
+            //    table: "Products",
+            //    type: "nvarchar(max)",
+            //    nullable: true,
+            //    oldClrType: typeof(string),
+            //    oldType: "nvarchar(max)");
 
             migrationBuilder.CreateTable(
                 name: "OrderHeaders",
@@ -140,15 +140,15 @@ namespace bulky.DataAccess.Migrations
                 oldType: "nvarchar(450)",
                 oldNullable: true);
 
-            migrationBuilder.AlterColumn<string>(
-                name: "ImageUrl",
-                table: "Products",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "",
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
+            //migrationBuilder.AlterColumn<string>(
+            //    name: "ImageUrl",
+            //    table: "Products",
+            //    type: "nvarchar(max)",
+            //    nullable: false,
+            //    defaultValue: "",
+            //    oldClrType: typeof(string),
+            //    oldType: "nvarchar(max)",
+            //    oldNullable: true);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_ShoppingCarts_AspNetUsers_ApplicationUserId",
